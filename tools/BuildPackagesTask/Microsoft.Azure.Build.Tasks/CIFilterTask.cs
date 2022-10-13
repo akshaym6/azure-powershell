@@ -397,6 +397,12 @@ namespace Microsoft.WindowsAzure.Build.Tasks
             
             FilterTaskResult.PhaseInfo = influencedModuleInfo;
 
+            if (!Directory.Exists(config.ArtifactPipelineInfoFolder))
+            {
+                Directory.CreateDirectory(config.ArtifactPipelineInfoFolder);
+            }
+            File.WriteAllText(Path.Combine(config.ArtifactPipelineInfoFolder, "Plan.json"), JsonConvert.SerializeObject(influencedModuleInfo));
+
             return true;
         }
 
