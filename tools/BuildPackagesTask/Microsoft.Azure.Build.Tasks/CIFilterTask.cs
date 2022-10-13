@@ -397,6 +397,8 @@ namespace Microsoft.WindowsAzure.Build.Tasks
             
             FilterTaskResult.PhaseInfo = influencedModuleInfo;
 
+            influencedModuleInfo[string.Format("{0}-module", BUILD_PHASE)] = new HashSet<string>(influencedModuleInfo[BUILD_PHASE].Select(GetModuleNameFromPath).Where(x => x != null));
+            influencedModuleInfo[string.Format("{0}-module", TEST_PHASE)] = new HashSet<string>(influencedModuleInfo[TEST_PHASE].Select(GetModuleNameFromPath).Where(x => x != null));
             if (!Directory.Exists(config.ArtifactPipelineInfoFolder))
             {
                 Directory.CreateDirectory(config.ArtifactPipelineInfoFolder);
@@ -404,6 +406,15 @@ namespace Microsoft.WindowsAzure.Build.Tasks
             File.WriteAllText(Path.Combine(config.ArtifactPipelineInfoFolder, "Plan.json"), JsonConvert.SerializeObject(influencedModuleInfo));
 
             return true;
+        }
+
+        private string GetModuleNameFromPath(string path)
+        {
+            if (path.IndexOf("src") == -1)
+            {
+                return null;
+            }
+            return path.Replace("\\", "/").Split("src/")[1].Split('/')[0];
         }
 
         /// <summary>
