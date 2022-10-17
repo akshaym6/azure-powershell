@@ -337,7 +337,7 @@ namespace Microsoft.WindowsAzure.Build.Tasks
                     }
                     if (csprojSet.Count != 0)
                     {
-                        foreach (string filename in Directory.GetFiles(@"src/Accounts", "*.csproj", SearchOption.AllDirectories).Where(x => !x.Contains("Test")))
+                        foreach (string filename in Directory.GetFiles(@"src\Accounts", "*.csproj", SearchOption.AllDirectories).Where(x => !x.Contains("Test")))
                         {
                             csprojSet.Add(filename);
                         }
@@ -353,7 +353,7 @@ namespace Microsoft.WindowsAzure.Build.Tasks
                     }
                     if (csprojSet.Count != 0)
                     {
-                        csprojSet.Add("tools/TestFx/TestFx.csproj");
+                        csprojSet.Add(@"tools\TestFx\TestFx.csproj");
                     }
                     influencedModuleInfo[phaseName] = csprojSet;
                 }
