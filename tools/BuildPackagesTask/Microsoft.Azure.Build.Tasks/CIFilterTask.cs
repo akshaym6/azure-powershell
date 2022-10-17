@@ -403,7 +403,7 @@ namespace Microsoft.WindowsAzure.Build.Tasks
             {
                 Directory.CreateDirectory(config.ArtifactPipelineInfoFolder);
             }
-            File.WriteAllText(Path.Combine(config.ArtifactPipelineInfoFolder, "Plan.json"), JsonConvert.SerializeObject(influencedModuleInfo));
+            File.WriteAllText(Path.Combine(config.ArtifactPipelineInfoFolder, "Plan.json"), JsonConvert.SerializeObject(influencedModuleInfo, Formatting.Indented));
 
             return true;
         }
